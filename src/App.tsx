@@ -9,6 +9,8 @@ function getRandomName(): string {
 }
 
 export class App extends React.Component {
+  timerId: number | undefined;
+
   state = {
     clockName: 'Clock-0',
     hasClock: true,
@@ -37,6 +39,9 @@ export class App extends React.Component {
   }
 
   componentWillUnmount() {
+    if (this.timerId !== undefined) {
+      clearInterval(this.timerId);
+    }
     document.removeEventListener('contextmenu', this.handleRightClick);
     document.removeEventListener('click', this.handleLeftClick);
   }
